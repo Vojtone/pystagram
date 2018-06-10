@@ -1,0 +1,10 @@
+{% if all_users %}
+    <h3>Users:</h3>
+    <ul>
+        {% for user in all_users %}
+            <li><a href="{% url 'gallery:detail' user.username %}">{{ user.username }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <h3>No users.</h3>
+{% endif %}
