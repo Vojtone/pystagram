@@ -1,8 +1,12 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="{% static 'gallery/style.css' %}"/>
+
 {% if all_users %}
     <h3>Users:</h3>
     <ul>
         {% for user in all_users %}
-            <li><a href="{% url 'gallery:detail' user.username %}">{{ user.username }}</a></li>
+            <li><a href="{% url 'gallery:grid' user.username %}">{{ user.username }}</a></li>
         {% endfor %}
     </ul>
 {% else %}

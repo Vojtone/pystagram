@@ -1,0 +1,30 @@
+<h2>{{ user }}</h2>
+
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+
+{% if user.photo_set.count == 0 %}
+    <p>No photos to show.</p>
+{% else %}
+
+    {% for photo in user.photo_set.all %}
+
+        <a href="{% url 'gallery:detail' user.username photo.id %}"><img src="{{ photo.photo_url }}"></a>
+
+        <form action="{% url 'gallery:liked' user.username %}" method="post">
+            {% csrf_token %}
+            {% if photo.liked %}
+                <input type="image" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Love_Heart_symbol.svg"
+                       name="photo"  value="{{ photo.id }}" width="20px" height="20px" >
+            {% else %}
+                <input type="image" src="https://www.wpclipart.com/signs_symbol/love/hearts/Heart_icon_red_hollow.png"
+                       name="photo"  value="{{ photo.id }}" width="20px" height="20px" >
+            {% endif %}
+        </form>
+
+    {% endfor %}
+{% endif %}
+
+<a href="{% url 'gallery:index' %}"><- Users</a>
