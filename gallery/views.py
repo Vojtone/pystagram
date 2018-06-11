@@ -1,6 +1,5 @@
-
 from django.shortcuts import render, get_object_or_404
-from .models import User, Photo
+from .models import User, Photo, Comment
 
 
 def index(request):
@@ -31,4 +30,14 @@ def liked(request, user_username):
 def detail(request, user_username, photo_id):
     user = get_object_or_404(User, username=user_username)
     photo = get_object_or_404(Photo, id=photo_id)
+    return render(request, 'gallery/detail.html', {'user': user, 'photo': photo})
+
+
+def commented(request, user_username, photo_id):
+    user = get_object_or_404(User, username=user_username)
+    photo = get_object_or_404(Photo, id=photo_id)
+
+    #Due to lack of the user authentitacion the author of comment is the author of the photo for now.
+    comment = Comment(author=user, photo=photo, content=request.POST['comment'])
+    comment.save()
     return render(request, 'gallery/detail.html', {'user': user, 'photo': photo})

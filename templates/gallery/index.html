@@ -2,13 +2,26 @@
 <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="{% static 'gallery/style.css' %}"/>
 
-{% if all_users %}
-    <h3>Users:</h3>
-    <ul>
-        {% for user in all_users %}
-            <li><a href="{% url 'gallery:grid' user.username %}">{{ user.username }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <h3>No users.</h3>
-{% endif %}
+<div class="container" style="padding-top: 20px;">
+    {% if all_users %}
+        <h3>Users:</h3>
+
+        <div class="row" style="display: flex; flex-wrap: wrap;">
+            {% for user in all_users %}
+                <div class="col-md-3 text-center">
+                    <div class="thumbnail">
+                      <a href="{% url 'gallery:grid' user.username %}">
+                        <img src="{{ user.profile_photo }}" alt="No profile pic :(" width="80%">
+                        <div class="caption">
+                          <p>{{ user.username }}</p>
+                        </div>
+                      </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    {% else %}
+        <h3>No users.</h3>
+    {% endif %}
+</div>

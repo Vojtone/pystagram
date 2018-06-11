@@ -1,4 +1,14 @@
 /*Background image from www.toptal.com/designers/subtlepatterns*/
 body {
-    background: white url("images/background.png")
+    background: white url("images/background.png");
+}
+
+@keyframes opac {
+    0%   {opacity: 1}
+    100% {opacity: 0.85}
+}
+
+.thumbnail:hover{
+
+    animation: opac 0.7s;
 }

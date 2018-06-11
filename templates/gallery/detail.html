@@ -1,8 +1,30 @@
-<img src="{{ photo.photo_url }}"/>
-<h4>{{ photo.description }}</h4>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="{% static 'gallery/style.css' %}"/>
 
-{% for comment in photo.comment_set.all %}
-    <p>{{ comment.author }} - {{ comment.content }} - {{ comment.date }}</p>
-{% endfor %}
+<div class="container" style="padding-top: 20px;">
 
-<a href="{% url 'gallery:grid' user.username %}"><- {{ user.username }}</a>
+    <div class="row">
+        <div class="col-md-8 text-center">
+            <img src="{{ photo.photo_url }}" class="col-md-12"/>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'gallery:grid' user.username %}"><- {{ user.username }}</a>
+            <h4>{{ photo.description }}</h4>
+
+            {% if photo.comment_set.count == 0 %}
+                <p>No comments.</p>
+            {% else %}
+                {% for comment in photo.comment_set.all %}
+                    <p><b>{{ comment.author }}</b> - {{ comment.content }} - <i>{{ comment.date }}</i></p>
+                {% endfor %}
+            {% endif %}
+
+            <form action="{% url 'gallery:commented' user.username photo.id %}" method="post">
+                {% csrf_token %}
+                <textarea name="comment" placeholder="Write your comment here." class="col-sm-12"></textarea>
+                <input type="submit" value="Add comment" class="btn btn-success">
+            </form>
+        </div>
+    </div>
+</div>
