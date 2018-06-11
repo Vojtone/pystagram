@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pystagram</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'gallery/style.css' %}"/>
+</head>
+<body>
+    <div class="container" style="padding-top: 20px;">
+        {% block container%}
+        {% endblock %}
+    </div>
+</body>
+</html>

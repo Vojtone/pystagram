@@ -1,12 +1,9 @@
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="{% static 'gallery/style.css' %}"/>
+{% extends 'gallery/base.html' %}
 
-<div class="container" style="padding-top: 20px;">
-
+{% block container%}
     <div class="row">
         <div class="col-md-8 text-center">
-            <img src="{{ photo.photo_url }}" class="col-md-12"/>
+            <img src="{{ photo.photo.url }}" alt="No pic :(" class="col-md-12"/>
         </div>
         <div class="col-md-4">
             <a href="{% url 'gallery:grid' user.username %}"><- {{ user.username }}</a>
@@ -22,9 +19,9 @@
 
             <form action="{% url 'gallery:commented' user.username photo.id %}" method="post">
                 {% csrf_token %}
-                <textarea name="comment" placeholder="Write your comment here." class="col-sm-12"></textarea>
-                <input type="submit" value="Add comment" class="btn btn-success">
+                <textarea name="comment" placeholder="Write your comment here." class="col-sm-12" required></textarea>
+                <input type="submit" value="Add comment" class="btn btn-success" style="margin-top: 4px">
             </form>
         </div>
     </div>
-</div>
+{% endblock %}
